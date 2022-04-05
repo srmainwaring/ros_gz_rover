@@ -3,9 +3,35 @@
 <package format="3">
   <name>ros_ign_rover</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Rover demo using Ignition Gazebo and ROS2.</description>
   <maintainer email="rhys.mainwaring@me.com">rhys</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Fortress -->
+  <exec_depend condition="$IGNITION_VERSION == fortress">ignition-gazebo6</exec_depend>
+  <!-- Garden -->
+  <exec_depend condition="$IGNITION_VERSION == garden">ignition-gazebo7</exec_depend>
+  <exec_depend condition="$IGNITION_VERSION == ''">gazebo7-gazebo6</exec_depend>
+
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>image_transport_plugins</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros_ign_bridge</exec_depend>
+  <exec_depend>ros_ign_gazebo</exec_depend>
+  <exec_depend>ros_ign_image</exec_depend>
+  <exec_depend>ros_ign_rover</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>rqt_image_view</exec_depend>
+  <exec_depend>rqt_plot</exec_depend>
+  <exec_depend>rqt_topic</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>tf_transformations</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
