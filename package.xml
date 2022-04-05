@@ -23,7 +23,6 @@
   <exec_depend>ros_ign_bridge</exec_depend>
   <exec_depend>ros_ign_gazebo</exec_depend>
   <exec_depend>ros_ign_image</exec_depend>
-  <exec_depend>ros_ign_rover</exec_depend>
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>rqt_image_view</exec_depend>
   <exec_depend>rqt_plot</exec_depend>
