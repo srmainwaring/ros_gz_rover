@@ -17,7 +17,7 @@ setup(
         (os.path.join('share', package_name, 'models'),
             glob('models/*.xacro')),
         (os.path.join('share', package_name, 'rviz'),
-            glob('models/*.rviz')),
+            glob('rviz/*.rviz')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
