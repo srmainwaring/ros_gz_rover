@@ -342,14 +342,14 @@
       <joint_name>rear_right_wheel_joint</joint_name>
     </plugin>
 
-    <!-- <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
+    <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
       <fdm_addr>127.0.0.1</fdm_addr>
       <fdm_port_in>9002</fdm_port_in>
       <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
       <lock_step>1</lock_step>
       <modelXYZToAirplaneXForwardZDown>0 0 0 ${PI} 0 0</modelXYZToAirplaneXForwardZDown>
       <gazeboXYZToNED>0 0 0 ${PI} 0 0</gazeboXYZToNED>
-      <imuName>imu_sensor</imuName> -->
+      <imuName>imu_sensor</imuName>
 
       <!--
           Rover
@@ -372,7 +372,7 @@
           SERVO1_REVERSED   0
           SERVO1_TRIM       1500
        -->
-      <!-- <control channel="0">
+      <control channel="0">
         <jointName>front_left_wheel_joint</jointName>
         <useForce>1</useForce>
         <multiplier>46.3</multiplier>
@@ -403,7 +403,7 @@
         <i_min>-1</i_min>
         <cmd_max>-1.0</cmd_max>
         <cmd_min>0.0</cmd_min>
-      </control> -->
+      </control>
 
       <!-- 
           SERVO3_FUNCTION   74 (Throttle Right)
@@ -412,7 +412,7 @@
           SERVO3_REVERSED   0
           SERVO3_TRIM       1500
        -->
-      <!-- <control channel="2">
+      <control channel="2">
         <jointName>front_right_wheel_joint</jointName>
         <useForce>1</useForce>
         <multiplier>46.3</multiplier>
@@ -444,7 +444,7 @@
         <cmd_max>-1.0</cmd_max>
         <cmd_min>0.0</cmd_min>
       </control>
-    </plugin> -->
+    </plugin>
 
   </gazebo>
 

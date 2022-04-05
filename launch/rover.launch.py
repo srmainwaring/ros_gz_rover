@@ -14,7 +14,7 @@ def generate_launch_description():
 
     # Parse robot description from xacro
     robot_description_file = os.path.join(pkg_ros_ign_rover,
-        'models', 'rover.xacro')
+        'models', 'rover.urdf.xacro')
     robot_description_config = xacro.process_file(
         robot_description_file)
     robot_description = {"robot_description": robot_description_config.toxml()}
