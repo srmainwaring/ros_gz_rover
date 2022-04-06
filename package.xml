@@ -15,7 +15,6 @@
   <exec_depend condition="$IGNITION_VERSION == garden">ignition-gazebo7</exec_depend>
   <exec_depend condition="$IGNITION_VERSION == ''">gazebo7-gazebo6</exec_depend>
 
-
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>image_transport_plugins</exec_depend>
   <exec_depend>rclpy</exec_depend>

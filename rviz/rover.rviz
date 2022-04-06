@@ -181,8 +181,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 1.438473105430603
-        Min Value: -0.30488887429237366
+        Max Value: 1.5884730815887451
+        Min Value: -0.15488886833190918
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -215,7 +215,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: rover/base_link/gpu_lidar
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:

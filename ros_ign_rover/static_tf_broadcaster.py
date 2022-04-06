@@ -7,7 +7,7 @@ from rclpy.node import Node
 
 from tf2_ros.static_transform_broadcaster import StaticTransformBroadcaster
 
-# import tf_transformations
+import tf_transformations
 
 
 class StaticFramePublisher(Node):
@@ -19,7 +19,7 @@ class StaticFramePublisher(Node):
    """
 
    def __init__(self):
-      super().__init__('tf2_broadcaster')
+      super().__init__('static_tf_broadcaster')
 
       self._tf_publisher = StaticTransformBroadcaster(self)
 
@@ -34,15 +34,11 @@ class StaticFramePublisher(Node):
       static_transformStamped.transform.translation.x = 0.0
       static_transformStamped.transform.translation.y = 0.0
       static_transformStamped.transform.translation.z = 0.0
-    #   quat = tf_transformations.quaternion_from_euler(0.0, 0.0, 0.0)
-    #   static_transformStamped.transform.rotation.x = quat[0]
-    #   static_transformStamped.transform.rotation.y = quat[1]
-    #   static_transformStamped.transform.rotation.z = quat[2]
-    #   static_transformStamped.transform.rotation.w = quat[3]
-      static_transformStamped.transform.rotation.x = 0.0
-      static_transformStamped.transform.rotation.y = 0.0
-      static_transformStamped.transform.rotation.z = 0.0
-      static_transformStamped.transform.rotation.w = 1.0
+      quat = tf_transformations.quaternion_from_euler(0.0, 0.0, 0.0)
+      static_transformStamped.transform.rotation.x = quat[0]
+      static_transformStamped.transform.rotation.y = quat[1]
+      static_transformStamped.transform.rotation.z = quat[2]
+      static_transformStamped.transform.rotation.w = quat[3]
 
       self._tf_publisher.sendTransform(static_transformStamped)
 

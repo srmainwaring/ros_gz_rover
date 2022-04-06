@@ -86,22 +86,30 @@ def generate_launch_description():
         output='screen'
     )
 
-    # tf2 static broadcaster
-    static_tf2_broadcaster = Node(
+    # static transform broadcaster - tranform sensor frames to their link frames
+    static_tf_broadcaster = Node(
         package='ros_ign_rover',
-        executable='tf2_broadcaster',
+        executable='static_tf_broadcaster',
         arguments=[
         ],
     )
 
+    # tf_broadcaster = Node(
+    #     package='ros_ign_rover',
+    #     executable='tf_broadcaster',
+    #     arguments=[
+    #     ],
+    # )
+
+    # Nodes and Launches
     return LaunchDescription(
         [
-            # Nodes and Launches
             gazebo,
             spawn,
             bridge,
             robot_state_publisher,
             rviz,
-            static_tf2_broadcaster,
+            static_tf_broadcaster,
+            # tf_broadcaster,
         ]
     )
