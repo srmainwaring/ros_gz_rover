@@ -1,0 +1,513 @@
+<?xml version="1.0"?>
+<!-- rover -->
+<robot name="rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <!-- define colors -->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="red">
+    <color rgba="${255/255} ${0/255} ${0/255} 1.0"/>
+  </material>
+
+  <material name="green">
+    <color rgba="${0/255} ${255/255} ${0/255} 1.0"/>
+  </material>
+
+  <material name="blue">
+    <color rgba="${0/255} ${0/255} ${255/255} 1.0"/>
+  </material>
+
+  <material name="yellow">
+    <color rgba="${255/255} ${255/255} ${0/255} 1.0"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="${255/255} ${215/255} ${0/255} 1.0"/>
+  </material>
+
+  <!-- base dimensions -->
+  <xacro:property name="base_x_size" value="0.6" />
+  <xacro:property name="base_y_size" value="0.4" />
+  <xacro:property name="base_z_size" value="0.2" />
+
+  <!-- wheel properties -->
+  <xacro:property name="wheel_length" value="0.1" />
+  <xacro:property name="wheel_radius" value="0.15" />
+
+  <!-- base link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="0.133" ixy="0.0" ixz="0.0"
+        iyy="0.133" iyz="0.0"
+        izz="0.133"/>
+    </inertial>
+  </link>
+
+  <!-- wheels -->
+  <link name="front_left_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia
+        ixx="0.0133" ixy="0.0" ixz="0.0"
+        iyy="0.0133" iyz="0.0"
+        izz="0.0133"/>
+    </inertial>
+  </link>
+
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel_link"/>
+    <origin xyz="${(base_x_size/2)} ${(base_y_size/2 + wheel_length)} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.01"/>
+  </joint>
+
+  <link name="front_right_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia
+        ixx="0.0133" ixy="0.0" ixz="0.0"
+        iyy="0.0133" iyz="0.0"
+        izz="0.0133"/>
+    </inertial>
+  </link>
+
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel_link"/>
+    <origin xyz="${(base_x_size/2)} ${-1*(base_y_size/2 + wheel_length)} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.01"/>
+  </joint>
+
+  <link name="rear_left_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia
+        ixx="0.0133" ixy="0.0" ixz="0.0"
+        iyy="0.0133" iyz="0.0"
+        izz="0.0133"/>
+    </inertial>
+  </link>
+
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_left_wheel_link"/>
+    <origin xyz="${-1*(base_x_size/2)} ${(base_y_size/2 + wheel_length)} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.01"/>
+  </joint>
+
+  <link name="rear_right_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+      <geometry>
+        <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia
+        ixx="0.0133" ixy="0.0" ixz="0.0"
+        iyy="0.0133" iyz="0.0"
+        izz="0.0133"/>
+    </inertial>
+  </link>
+
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_right_wheel_link"/>
+    <origin xyz="${-1*(base_x_size/2)} ${-1*(base_y_size/2 + wheel_length)} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.01"/>
+  </joint>
+
+  <!-- sensors -->
+  <link name="imu_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia
+        ixx="0.00133" ixy="0.0" ixz="0.0"
+        iyy="0.00133" iyz="0.0"
+        izz="0.00133"/>
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 ${base_z_size/2+0.005}" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia
+        ixx="0.0133" ixy="0.0" ixz="0.0"
+        iyy="0.0133" iyz="0.0"
+        izz="0.0133"/>
+    </inertial>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="${base_x_size/2-0.05} 0 ${base_z_size/2+0.05}" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- gazebo links -->
+  <gazebo reference="base_link">
+    <!-- <material>
+      <diffuse>${255/255} ${255/255} ${0/255} 1.0</diffuse>
+      <ambient>${255/255} ${255/255} ${0/255} 1.0</ambient>
+      <specular>${255/255} ${255/255} ${0/255} 1.0</specular>
+    </material> -->
+  </gazebo>
+
+  <gazebo reference="front_left_wheel_link">
+  </gazebo>
+  <gazebo reference="front_left_wheel_joint">
+  </gazebo>
+  <gazebo reference="front_right_wheel_link">
+  </gazebo>
+  <gazebo reference="front_right_wheel_joint">
+  </gazebo>
+  <gazebo reference="rear_left_wheel_link">
+  </gazebo>
+  <gazebo reference="rear_left_wheel_joint">
+  </gazebo>
+  <gazebo reference="rear_right_wheel_link">
+  </gazebo>
+  <gazebo reference="rear_right_wheel_joint">
+  </gazebo>
+
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <pose>0 0 0 ${PI} 0 0</pose>
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+    </sensor>
+  </gazebo>
+  <gazebo reference="imu_joint">
+  </gazebo>
+
+  <gazebo reference="lidar_link">
+    <!-- <sensor name='gpu_lidar' type='gpu_lidar'>
+      <topic>lidar</topic>
+      <update_rate>10</update_rate>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>640</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.396263</min_angle>
+            <max_angle>1.396263</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>16</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.08</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </lidar>
+      <alwaysOn>1</alwaysOn>
+      <visualize>true</visualize>
+    </sensor> -->
+    <!-- 360 deg / multi-laser -->
+    <sensor name='gpu_lidar' type='gpu_lidar'>
+      <topic>lidar</topic>
+      <update_rate>10</update_rate>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>512</samples>
+            <resolution>1</resolution>
+            <min_angle>${-PI}</min_angle>
+            <max_angle>${PI}</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>64</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.08</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </lidar>
+      <alwaysOn>1</alwaysOn>
+      <visualize>true</visualize>
+    </sensor>
+  </gazebo>
+  <gazebo reference="lidar_joint">
+  </gazebo>
+
+  <!-- gazebo plugins -->
+  <gazebo>
+    <plugin
+      filename="ignition-gazebo-pose-publisher-system"
+      name="ignition::gazebo::systems::PosePublisher">
+      <publish_link_pose>1</publish_link_pose>
+      <publish_visual_pose>0</publish_visual_pose>
+      <publish_collision_pose>0</publish_collision_pose>
+      <publish_sensor_pose>0</publish_sensor_pose>
+      <publish_model_pose>0</publish_model_pose>
+      <publish_nested_model_pose>0</publish_nested_model_pose>
+      <!-- <use_pose_vector_msg>1</use_pose_vector_msg>
+      <update_frequency>50</update_frequency>
+      <static_publisher>1</static_publisher>
+      <static_update_frequency>1</static_update_frequency> -->
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-odometry-publisher-system"
+      name="ignition::gazebo::systems::OdometryPublisher">
+      <!-- <odom_frame>rover/odom</odom_frame>
+      <robot_base_frame>rover/base_footprint</robot_base_frame>
+      <odom_publish_frequency>50</odom_publish_frequency>
+      <odom_topic>model/rover/odometry</odom_topic> -->
+      <odom_frame>odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <odom_publish_frequency>-1</odom_publish_frequency>
+      <odom_topic>model/rover/odometry</odom_topic>
+      <dimensions>3</dimensions>
+    </plugin>
+
+    <plugin
+      filename="libignition-gazebo-joint-state-publisher-system.so"
+      name="ignition::gazebo::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin
+      filename="libignition-gazebo-apply-joint-force-system.so"
+      name="ignition::gazebo::systems::ApplyJointForce">
+      <joint_name>front_left_wheel_joint</joint_name>
+    </plugin>
+    <plugin
+      filename="libignition-gazebo-apply-joint-force-system.so"
+      name="ignition::gazebo::systems::ApplyJointForce">
+      <joint_name>front_right_wheel_joint</joint_name>
+    </plugin>
+    <plugin
+      filename="libignition-gazebo-apply-joint-force-system.so"
+      name="ignition::gazebo::systems::ApplyJointForce">
+      <joint_name>rear_left_wheel_joint</joint_name>
+    </plugin>
+    <plugin
+      filename="libignition-gazebo-apply-joint-force-system.so"
+      name="ignition::gazebo::systems::ApplyJointForce">
+      <joint_name>rear_right_wheel_joint</joint_name>
+    </plugin>
+
+    <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
+      <fdm_addr>127.0.0.1</fdm_addr>
+      <fdm_port_in>9002</fdm_port_in>
+      <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
+      <lock_step>1</lock_step>
+      <modelXYZToAirplaneXForwardZDown>0 0 0 ${PI} 0 0</modelXYZToAirplaneXForwardZDown>
+      <gazeboXYZToNED>0 0 0 ${PI} 0 0</gazeboXYZToNED>
+      <imuName>imu_sensor</imuName>
+
+      <!--
+          Rover
+            - max_lin_vel   5 km/h = 1.39 m/s
+            - wheel_radius  0.060 m
+            - max_ang_vel   23.15 rad/s
+            - multiplier    46.30 rad/s
+
+          pwm:            =>  [1000, 2000] 
+          input:          =>  [0, 1]
+          offset: -0.5    =>  [-0.5, 0.5]
+          scale:   2.0    =>  [-1.0, 1.0]
+          scale:   23.15  =>  [-5.0, 5.0]
+        -->
+
+      <!-- 
+          SERVO1_FUNCTION   73 (Throttle Left)
+          SERVO1_MAX        2000
+          SERVO1_MIN        1000
+          SERVO1_REVERSED   0
+          SERVO1_TRIM       1500
+       -->
+      <control channel="0">
+        <jointName>front_left_wheel_joint</jointName>
+        <useForce>1</useForce>
+        <multiplier>46.3</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>0.2</p_gain>
+        <i_gain>0.06</i_gain>
+        <d_gain>0.0001</d_gain>
+        <i_max>1</i_max>
+        <i_min>-1</i_min>
+        <cmd_max>-1.0</cmd_max>
+        <cmd_min>0.0</cmd_min>
+      </control>
+      <control channel="0">
+        <jointName>rear_left_wheel_joint</jointName>
+        <useForce>1</useForce>
+        <multiplier>46.3</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>0.2</p_gain>
+        <i_gain>0.06</i_gain>
+        <d_gain>0.0001</d_gain>
+        <i_max>1</i_max>
+        <i_min>-1</i_min>
+        <cmd_max>-1.0</cmd_max>
+        <cmd_min>0.0</cmd_min>
+      </control>
+
+      <!-- 
+          SERVO3_FUNCTION   74 (Throttle Right)
+          SERVO3_MAX        2000
+          SERVO3_MIN        1000
+          SERVO3_REVERSED   0
+          SERVO3_TRIM       1500
+       -->
+      <control channel="2">
+        <jointName>front_right_wheel_joint</jointName>
+        <useForce>1</useForce>
+        <multiplier>46.3</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>0.2</p_gain>
+        <i_gain>0.06</i_gain>
+        <d_gain>0.0001</d_gain>
+        <i_max>1</i_max>
+        <i_min>-1</i_min>
+        <cmd_max>-1.0</cmd_max>
+        <cmd_min>0.0</cmd_min>
+      </control>
+      <control channel="2">
+        <jointName>rear_right_wheel_joint</jointName>
+        <useForce>1</useForce>
+        <multiplier>46.3</multiplier>
+        <offset>-0.5</offset>
+        <servo_min>1000</servo_min>
+        <servo_max>2000</servo_max>
+        <type>VELOCITY</type>
+        <p_gain>0.2</p_gain>
+        <i_gain>0.06</i_gain>
+        <d_gain>0.0001</d_gain>
+        <i_max>1</i_max>
+        <i_min>-1</i_min>
+        <cmd_max>-1.0</cmd_max>
+        <cmd_min>0.0</cmd_min>
+      </control>
+    </plugin>
+
+  </gazebo>
+
+</robot>

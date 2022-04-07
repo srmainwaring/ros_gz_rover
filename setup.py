@@ -1,3 +1,5 @@
+import os
+from glob import glob
 from setuptools import setup
 
 package_name = 'ros_ign_rover'
@@ -10,17 +12,24 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name),
+            glob('launch/*.launch.py')),
+        (os.path.join('share', package_name, 'models'),
+            glob('models/*.xacro')),
+        (os.path.join('share', package_name, 'rviz'),
+            glob('rviz/*.rviz')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='rhys',
+    maintainer='Rhys Mainwaring',
     maintainer_email='rhys.mainwaring@me.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Rover demo using Ignition Gazebo and ROS2',
+    license='Apache 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'tf2_broadcaster = ros_ign_rover.tf2_broadcaster:main'
+            'static_tf_broadcaster = ros_ign_rover.static_tf_broadcaster:main',
+            'tf_broadcaster = ros_ign_rover.tf_broadcaster:main',
         ],
     },
 )
