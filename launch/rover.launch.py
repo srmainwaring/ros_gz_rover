@@ -76,12 +76,16 @@ def generate_launch_description():
             '/world/empty/model/rover/link/base_link/sensor/imu_sensor/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
             '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
             '/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked',
+            '/model/rover/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
+            '/model/rover/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose',
         ],
         remappings=[
             ('/world/empty/model/rover/joint_state', 'joint_states'),
             ('/world/empty/model/rover/link/base_link/sensor/imu_sensor/imu', 'sensors/imu'),
-            # ('/lidar', 'sensors/laser_scan'),
-            # ('/lidar/points', 'sensors/laser_scan/points'),
+            ('/lidar', 'sensors/laser_scan'),
+            ('/lidar/points', 'sensors/laser_scan/points'),
+            ('/model/rover/odometry', 'odom'),
+            ('/model/rover/pose', 'pose'),
         ],
         output='screen'
     )
@@ -94,12 +98,12 @@ def generate_launch_description():
         ],
     )
 
-    # tf_broadcaster = Node(
-    #     package='ros_ign_rover',
-    #     executable='tf_broadcaster',
-    #     arguments=[
-    #     ],
-    # )
+    tf_broadcaster = Node(
+        package='ros_ign_rover',
+        executable='tf_broadcaster',
+        arguments=[
+        ],
+    )
 
     # Nodes and Launches
     return LaunchDescription(
@@ -110,6 +114,6 @@ def generate_launch_description():
             robot_state_publisher,
             rviz,
             static_tf_broadcaster,
-            # tf_broadcaster,
+            tf_broadcaster,
         ]
     )
