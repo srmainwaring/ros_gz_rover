@@ -357,8 +357,9 @@
       <publish_visual_pose>0</publish_visual_pose>
       <publish_collision_pose>0</publish_collision_pose>
       <publish_sensor_pose>0</publish_sensor_pose>
-      <publish_model_pose>0</publish_model_pose>
+      <publish_model_pose>1</publish_model_pose>
       <publish_nested_model_pose>0</publish_nested_model_pose>
+      <update_frequency>50</update_frequency>
       <!-- <use_pose_vector_msg>1</use_pose_vector_msg>
       <update_frequency>50</update_frequency>
       <static_publisher>1</static_publisher>
@@ -373,7 +374,7 @@
       <odom_topic>model/rover/odometry</odom_topic> -->
       <odom_frame>odom</odom_frame>
       <robot_base_frame>base_link</robot_base_frame>
-      <odom_publish_frequency>-1</odom_publish_frequency>
+      <odom_publish_frequency>50</odom_publish_frequency>
       <odom_topic>model/rover/odometry</odom_topic>
       <dimensions>3</dimensions>
     </plugin>
