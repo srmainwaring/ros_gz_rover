@@ -32,7 +32,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_ign_gazebo, 'launch', 'ign_gazebo.launch.py')),
-        launch_arguments={'ign_args': '-s -r empty_physics.sdf'}.items(),
+        launch_arguments={'ign_args': '-s -r rover_playpen.sdf'}.items(),
     )
 
     # RViz
@@ -72,16 +72,16 @@ def generate_launch_description():
         executable='parameter_bridge',
         arguments=[
             '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
-            '/world/empty/model/rover/joint_state@sensor_msgs/msg/JointState[ignition.msgs.Model',
-            '/world/empty/model/rover/link/base_link/sensor/imu_sensor/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
+            '/world/rover_playpen/model/rover/joint_state@sensor_msgs/msg/JointState[ignition.msgs.Model',
+            '/world/rover_playpen/model/rover/link/base_link/sensor/imu_sensor/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
             '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
             '/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked',
             '/model/rover/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
             '/model/rover/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose',
         ],
         remappings=[
-            ('/world/empty/model/rover/joint_state', 'joint_states'),
-            ('/world/empty/model/rover/link/base_link/sensor/imu_sensor/imu', 'sensors/imu'),
+            ('/world/rover_playpen/model/rover/joint_state', 'joint_states'),
+            ('/world/rover_playpen/model/rover/link/base_link/sensor/imu_sensor/imu', 'sensors/imu'),
             ('/lidar', 'sensors/laser_scan'),
             ('/lidar/points', 'sensors/laser_scan/points'),
             ('/model/rover/odometry', 'odom'),
