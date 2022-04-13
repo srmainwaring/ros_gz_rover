@@ -9,6 +9,7 @@ Panels:
         - /TF1/Tree1
         - /Gazebo1
         - /MAVROS1
+        - /MAVROS1/Odometry1/Shape1
       Splitter Ratio: 0.5
     Tree Height: 513
   - Class: rviz_common/Selection
@@ -117,6 +118,8 @@ Visualization Manager:
         All Enabled: true
         base_link:
           Value: true
+        base_link_frd:
+          Value: true
         front_left_wheel_link:
           Value: true
         front_right_wheel_link:
@@ -127,7 +130,11 @@ Visualization Manager:
           Value: true
         map:
           Value: true
+        map_ned:
+          Value: true
         odom:
+          Value: true
+        odom_ned:
           Value: true
         rear_left_wheel_link:
           Value: true
@@ -142,8 +149,12 @@ Visualization Manager:
       Show Names: true
       Tree:
         map:
+          map_ned:
+            {}
           odom:
             base_link:
+              base_link_frd:
+                {}
               front_left_wheel_link:
                 {}
               front_right_wheel_link:
@@ -157,6 +168,8 @@ Visualization Manager:
                 {}
               rear_right_wheel_link:
                 {}
+            odom_ned:
+              {}
       Update Interval: 0
       Value: true
     - Class: rviz_common/Group
@@ -297,10 +310,10 @@ Visualization Manager:
             Alpha: 1
             Axes Length: 1
             Axes Radius: 0.10000000149011612
-            Color: 255; 25; 255
+            Color: 25; 255; 255
             Head Length: 0.30000001192092896
             Head Radius: 0.10000000149011612
-            Shaft Length: 1
+            Shaft Length: 0.5
             Shaft Radius: 0.05000000074505806
             Value: Arrow
           Topic:
@@ -365,7 +378,7 @@ Visualization Manager:
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-      Enabled: false
+      Enabled: true
       Name: MAVROS
   Enabled: true
   Global Options:
@@ -413,22 +426,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 25.444786071777344
+      Distance: 32.27154541015625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.4688364565372467
-        Y: 2.804489850997925
-        Z: -7.275851726531982
+        X: 0.11502579599618912
+        Y: 2.593972682952881
+        Z: -7.4005208015441895
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.119796872138977
+      Pitch: 1.0397969484329224
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
       Yaw: 4.710399627685547

@@ -43,7 +43,7 @@ def generate_launch_description():
         ],
         parameters=[config],
         remappings=[
-            ('/mavros/obstacle/send', '/sensors/laser_scan'),
+            ('/mavros/obstacle/send', '/sensors/laser_scan_frd'),
         ]
     )
 

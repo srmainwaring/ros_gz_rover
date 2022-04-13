@@ -30,6 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'laser_scan_transform_flu_to_frd = ros_ign_rover.laser_scan_transform_flu_to_frd:main',
             'tf_broadcaster = ros_ign_rover.tf_broadcaster:main',
         ],
     },

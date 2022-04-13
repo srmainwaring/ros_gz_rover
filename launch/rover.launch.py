@@ -92,6 +92,7 @@ def generate_launch_description():
         output='screen'
     )
 
+    # static transform from lidar link to the lidar sensor (identity)
     static_tf_lidar_to_gpu_lidar = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
@@ -99,28 +100,39 @@ def generate_launch_description():
         arguments = ["0", "0", "0", "0", "0", "0", "lidar_link", "rover/base_link/gpu_lidar"]
     )
 
-    # the correction here is for when
+    # static transform from map to odom (identity - assuming perfect odometry)
     # 
-    #   <gazeboXYZToNED>0 0 0 ${PI} 0 {-PI/2}</gazeboXYZToNED> 
-    # 
-    # is set incorrectly to
-    # 
-    #   <gazeboXYZToNED>0 0 0 ${PI} 0 0</gazeboXYZToNED>
-    #
-    # it will fix the odometry, but does not correct other data such
-    # as laser scans
+    # NOTE: the Ardupilot plugin must use the correct transform from the
+    #       Gazebo ENU world frame to the ArduPilot NED world frame
+    #  
+    #   <gazeboXYZToNED>0 0 0 ${PI} 0 ${PI/2}</gazeboXYZToNED>
     # 
     static_tf_map_to_odom = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name="static_tf_map_to_odom",
-        # arguments = ["0", "0", "0", f"{math.pi/2}", "0", "0", "map", "odom"]
         arguments = ["0", "0", "0", "0", "0", "0", "map", "odom"]
+    )
+
+    # static transform from base_link to base_link_frd (body-frame aerospace convention)
+    static_tf_base_link_to_base_link_frd = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name="static_tf_base_link_to_base_link_frd",
+        arguments = ["0", "0", "0", f"{math.pi}", "0", "0", "base_link", "base_link_frd"]
     )
 
     tf_broadcaster = Node(
         package='ros_ign_rover',
         executable='tf_broadcaster',
+        arguments=[
+        ],
+    )
+
+    # laser scan processing
+    laser_scan_transform = Node(
+        package='ros_ign_rover',
+        executable='laser_scan_transform_flu_to_frd',
         arguments=[
         ],
     )
@@ -135,6 +147,8 @@ def generate_launch_description():
             rviz,
             static_tf_lidar_to_gpu_lidar,
             static_tf_map_to_odom,
+            static_tf_base_link_to_base_link_frd,
             tf_broadcaster,
+            laser_scan_transform,
         ]
     )
