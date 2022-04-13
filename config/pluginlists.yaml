@@ -1,0 +1,13 @@
+# The plugin white/black lists do not appear to be implemented in ROS2
+# 
+/mavros:
+  ros__parameters:
+    plugin_blacklist:
+      - '*'
+
+    plugin_whitelist:
+      - 'sys_*'
+      - command
+      - param
+      - image_pub
+      - px4flow
