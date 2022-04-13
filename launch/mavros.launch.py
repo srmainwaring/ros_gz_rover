@@ -32,7 +32,7 @@ def generate_launch_description():
     # mavros
     #
     # obstacle
-    #   /mavros/obstacle/send to /sensors/laser_scan.
+    #   remap: /mavros/obstacle/send to /sensors/laser_scan.
     #
     mavros = Node(
         package='mavros',

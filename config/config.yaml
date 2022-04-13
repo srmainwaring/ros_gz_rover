@@ -4,13 +4,15 @@
 # startup_px4_usb_quirk: false
 
 /mavros:
+  # distance_sensor node
   distance_sensor:
     ros__parameters:
       base_frame_id: base_footprint
-      # This will suppress the warnings from ArduPilot about missing sensor definitions.
-      # distance_sensor requires a workaround for its parameter definition.
+      # This config will suppress the warnings in the mavros node about
+      #  missing sensor definitions for distance_sensor.
       # 
-      # See: ROS2: port mavros launch #1564
+      # The distance_sensor config requires a workaround for the parameter definition.
+      # See comments in: ROS2: port mavros launch #1564
       # https://github.com/mavlink/mavros/issues/1564#issuecomment-1055155609
       config: |-
         sensor_10:
@@ -94,6 +96,7 @@
           horizontal_fov_ratio: 0.0
           vertical_fov_ratio: 0.0
 
+      # Example: all parameters defined in code
       # config: |-
       #   sensor_10:
       #     id: 10
@@ -116,8 +119,14 @@
       #     horizontal_fov_ratio: 0.0
       #     vertical_fov_ratio: 0.0
 
+  # obstacle node
+  # 
+  # The mav_frame does not appear to be used to transform the data
+  # on either the mavros side or in ArduPilot SITL. The correct frame
+  # for data received from Ignition is BODY_FLU, but this is not available
+  # as an option.
   obstacle:
     ros__parameters:
-      mav_frame: LOCAL_ENU
+      mav_frame: BODY_FRD
 
 
