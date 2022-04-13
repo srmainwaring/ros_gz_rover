@@ -28,7 +28,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'static_tf_broadcaster = ros_ign_rover.static_tf_broadcaster:main',
             'tf_broadcaster = ros_ign_rover.tf_broadcaster:main',
         ],
     },

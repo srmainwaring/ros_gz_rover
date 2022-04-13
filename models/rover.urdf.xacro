@@ -411,7 +411,7 @@
       <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
       <lock_step>1</lock_step>
       <modelXYZToAirplaneXForwardZDown>0 0 0 ${PI} 0 0</modelXYZToAirplaneXForwardZDown>
-      <gazeboXYZToNED>0 0 0 ${PI} 0 0</gazeboXYZToNED>
+      <gazeboXYZToNED>0 0 0 ${PI} 0 ${PI/2}</gazeboXYZToNED>
       <imuName>imu_sensor</imuName>
 
       <!--

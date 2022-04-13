@@ -1,4 +1,6 @@
+import math
 import os
+
 import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -58,10 +60,10 @@ def generate_launch_description():
             '-topic', 'robot_description',
             '-x', '0.0',
             '-y', '0.0',
-            '-z', '0.5',
+            '-z', '0.25',
             '-R', '0.0',
             '-P', '0.0',
-            '-Y', '0.0',
+            '-Y', f'{math.pi/2}',
         ],
         output='screen',
     )
@@ -90,12 +92,30 @@ def generate_launch_description():
         output='screen'
     )
 
-    # static transform broadcaster - tranform sensor frames to their link frames
-    static_tf_broadcaster = Node(
-        package='ros_ign_rover',
-        executable='static_tf_broadcaster',
-        arguments=[
-        ],
+    static_tf_lidar_to_gpu_lidar = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name="static_tf_lidar_to_gpu_lidar",
+        arguments = ["0", "0", "0", "0", "0", "0", "lidar_link", "rover/base_link/gpu_lidar"]
+    )
+
+    # the correction here is for when
+    # 
+    #   <gazeboXYZToNED>0 0 0 ${PI} 0 {-PI/2}</gazeboXYZToNED> 
+    # 
+    # is set incorrectly to
+    # 
+    #   <gazeboXYZToNED>0 0 0 ${PI} 0 0</gazeboXYZToNED>
+    #
+    # it will fix the odometry, but does not correct other data such
+    # as laser scans
+    # 
+    static_tf_map_to_odom = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name="static_tf_map_to_odom",
+        # arguments = ["0", "0", "0", f"{math.pi/2}", "0", "0", "map", "odom"]
+        arguments = ["0", "0", "0", "0", "0", "0", "map", "odom"]
     )
 
     tf_broadcaster = Node(
@@ -113,7 +133,8 @@ def generate_launch_description():
             bridge,
             robot_state_publisher,
             rviz,
-            static_tf_broadcaster,
+            static_tf_lidar_to_gpu_lidar,
+            static_tf_map_to_odom,
             tf_broadcaster,
         ]
     )
