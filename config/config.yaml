@@ -1,0 +1,132 @@
+# Common configuration for ArduPilot
+#
+# node:
+# startup_px4_usb_quirk: false
+
+/mavros:
+  # distance_sensor node
+  distance_sensor:
+    ros__parameters:
+      base_frame_id: base_footprint
+      # This config will suppress the warnings in the mavros node about
+      #  missing sensor definitions for distance_sensor.
+      # 
+      # The distance_sensor config requires a workaround for the parameter definition.
+      # See comments in: ROS2: port mavros launch #1564
+      # https://github.com/mavlink/mavros/issues/1564#issuecomment-1055155609
+      config: |-
+        sensor_10:
+          id: 10
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_11:
+          id: 11
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_12:
+          id: 12
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_13:
+          id: 13
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_14:
+          id: 14
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_15:
+          id: 15
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_16:
+          id: 16
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+        sensor_17:
+          id: 17
+          subscriber: false
+          frame_id: lidar_link
+          field_of_view: 0.0
+          send_tf: false
+          sensor_position: {x: 0.0, y: 0.0, z: 0.0}
+          covariance: 0.0
+          horizontal_fov_ratio: 0.0
+          vertical_fov_ratio: 0.0
+
+      # Example: all parameters defined in code
+      # config: |-
+      #   sensor_10:
+      #     id: 10
+      #     subscriber: false
+      #     orientation: PITCH_270
+      #     # if subscriber != true
+      #     frame_id: lidar_link
+      #     field_of_view: 0.0
+      #     send_tf: false
+      #     sensor_position:
+      #       x: 0.0
+      #       y: 0.0
+      #       z: 0.0
+      #     # else subscriber == true
+      #     custom_orientation:
+      #       roll: 0.0
+      #       pitch: 0.0
+      #       yaw: 0.0
+      #     covariance: 0.0
+      #     horizontal_fov_ratio: 0.0
+      #     vertical_fov_ratio: 0.0
+
+  # obstacle node
+  # 
+  # The mav_frame does not appear to be used to transform the data
+  # on either the mavros side or in ArduPilot SITL. The correct frame
+  # for data received from Ignition is BODY_FLU, but this is not available
+  # as an option.
+  obstacle:
+    ros__parameters:
+      mav_frame: BODY_FRD
+
+

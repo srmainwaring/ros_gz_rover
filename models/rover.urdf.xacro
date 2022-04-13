@@ -52,6 +52,37 @@
         <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
       </geometry>
     </collision>
+
+    <!-- front bumper -->
+    <visual>
+      <origin xyz="${(base_x_size/2 + wheel_radius)} 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 ${base_y_size} ${base_z_size/2}"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="${(base_x_size/2 + wheel_radius)} 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 ${base_y_size} ${base_z_size/2}"/>
+      </geometry>
+    </collision>
+
+    <!-- rear bumper -->
+    <visual>
+      <origin xyz="${-1 * (base_x_size/2 + wheel_radius)} 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 ${base_y_size} ${base_z_size/2}"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="${-1 * (base_x_size/2 + wheel_radius)} 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 ${base_y_size} ${base_z_size/2}"/>
+      </geometry>
+    </collision>
+
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="1.0"/>
@@ -411,7 +442,7 @@
       <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
       <lock_step>1</lock_step>
       <modelXYZToAirplaneXForwardZDown>0 0 0 ${PI} 0 0</modelXYZToAirplaneXForwardZDown>
-      <gazeboXYZToNED>0 0 0 ${PI} 0 0</gazeboXYZToNED>
+      <gazeboXYZToNED>0 0 0 ${PI} 0 ${PI/2}</gazeboXYZToNED>
       <imuName>imu_sensor</imuName>
 
       <!--

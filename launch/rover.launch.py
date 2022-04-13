@@ -1,4 +1,6 @@
+import math
 import os
+
 import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -58,10 +60,10 @@ def generate_launch_description():
             '-topic', 'robot_description',
             '-x', '0.0',
             '-y', '0.0',
-            '-z', '0.5',
+            '-z', '0.25',
             '-R', '0.0',
             '-P', '0.0',
-            '-Y', '0.0',
+            '-Y', f'{math.pi/2}',
         ],
         output='screen',
     )
@@ -90,17 +92,47 @@ def generate_launch_description():
         output='screen'
     )
 
-    # static transform broadcaster - tranform sensor frames to their link frames
-    static_tf_broadcaster = Node(
-        package='ros_ign_rover',
-        executable='static_tf_broadcaster',
-        arguments=[
-        ],
+    # static transform from lidar link to the lidar sensor (identity)
+    static_tf_lidar_to_gpu_lidar = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name="static_tf_lidar_to_gpu_lidar",
+        arguments = ["0", "0", "0", "0", "0", "0", "lidar_link", "rover/base_link/gpu_lidar"]
+    )
+
+    # static transform from map to odom (identity - assuming perfect odometry)
+    # 
+    # NOTE: the Ardupilot plugin must use the correct transform from the
+    #       Gazebo ENU world frame to the ArduPilot NED world frame
+    #  
+    #   <gazeboXYZToNED>0 0 0 ${PI} 0 ${PI/2}</gazeboXYZToNED>
+    # 
+    static_tf_map_to_odom = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name="static_tf_map_to_odom",
+        arguments = ["0", "0", "0", "0", "0", "0", "map", "odom"]
+    )
+
+    # static transform from base_link to base_link_frd (body-frame aerospace convention)
+    static_tf_base_link_to_base_link_frd = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name="static_tf_base_link_to_base_link_frd",
+        arguments = ["0", "0", "0", f"{math.pi}", "0", "0", "base_link", "base_link_frd"]
     )
 
     tf_broadcaster = Node(
         package='ros_ign_rover',
         executable='tf_broadcaster',
+        arguments=[
+        ],
+    )
+
+    # laser scan processing
+    laser_scan_transform = Node(
+        package='ros_ign_rover',
+        executable='laser_scan_transform_flu_to_frd',
         arguments=[
         ],
     )
@@ -113,7 +145,10 @@ def generate_launch_description():
             bridge,
             robot_state_publisher,
             rviz,
-            static_tf_broadcaster,
+            static_tf_lidar_to_gpu_lidar,
+            static_tf_map_to_odom,
+            static_tf_base_link_to_base_link_frd,
             tf_broadcaster,
+            laser_scan_transform,
         ]
     )

@@ -20,6 +20,15 @@ $ git clone https://github.com/srmainwaring/ros_ign.git -b feature/ros2-macos
 # clone tf_transformations (ros2 galactic may not include this)
 https://github.com/DLu/tf_transformations.git
 
+
+# clone dependencies for mavros (ROS2)
+git clone https://github.com/ros/angles.git -b ros2
+git clone https://github.com/ros/diagnostics.git -b galactic
+git clone https://github.com/ros/diagnostics.git -b galactic
+git clone https://github.com/ros-geographic-info/geographic_info.git -b ros2
+git clone https://github.com/mavlink/mavlink-gbp-release.git
+git clone https://github.com/srmainwaring/mavros.git -b srmainwaring/ros2-macos
+
 # clone this repo
 git clone https://github.com/srmainwaring/ros_ign_rover.git
 ```
@@ -28,7 +37,7 @@ Build
 
 ```bash
 $ cd ~/ros2-ign
-$ colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_MACOSX_RPATH=FALSE -DCMAKE_INSTALL_NAME_DIR=$(pwd)/install/lib
+$ colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_MACOSX_RPATH=FALSE -DCMAKE_INSTALL_NAME_DIR=$(pwd)/install/lib -DCMAKE_CXX_STANDARD=17
 ```
 
 Launch the ROS2 nodes, the Ignition server, and RViz
@@ -39,10 +48,18 @@ $ source ./install/setup.zsh
 $ ros2 launch ros_ign_rover rover.launch.py
 ```
 
-Launch SITL
+Launch the mavros nodes including plugins from mavros_extras
 
 ```bash
-$ sim_vehicle.py -v Rover -f rover-skid --model JSON --map --console
+$ cd ~/ros2-ign
+$ source ./install/setup.zsh
+$ ros2 launch ros_ign_rover mavros.launch.py
+```
+
+Launch SITL and provide output to additional GCS running on another machine
+
+```bash
+$ sim_vehicle.py -N -v Rover -f rover-skid --model JSON --mavproxy-args="--out=udp:192.168.1.83:14551"
 ```
 
 Launch the Ignition Gazebo client
@@ -50,3 +67,4 @@ Launch the Ignition Gazebo client
 ```bash
 $ ign gazebo -v4 -g
 ```
+

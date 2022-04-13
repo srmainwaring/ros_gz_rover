@@ -14,6 +14,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name),
             glob('launch/*.launch.py')),
+        (os.path.join('share', package_name, 'config'),
+            glob('config/*.yaml')),
         (os.path.join('share', package_name, 'models'),
             glob('models/*.xacro')),
         (os.path.join('share', package_name, 'rviz'),
@@ -28,7 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'static_tf_broadcaster = ros_ign_rover.static_tf_broadcaster:main',
+            'laser_scan_transform_flu_to_frd = ros_ign_rover.laser_scan_transform_flu_to_frd:main',
             'tf_broadcaster = ros_ign_rover.tf_broadcaster:main',
         ],
     },
