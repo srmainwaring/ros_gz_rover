@@ -2,7 +2,8 @@
 
 This package contains an example demonstrating how to use the ROS2 - Ignition bridge for a skid-steer rover controlled by ArduPilot. It assumes an advanced level of familiarity with the packages referred to below, most of the dependencies will need to be built from source. 
 
-![ros_ign_rviz_rover](https://user-images.githubusercontent.com/24916364/162181901-ff2f24ce-5338-4423-b8df-ca531241a86b.jpg)
+![ros_ign_rover_playpen_5](https://user-images.githubusercontent.com/24916364/163236091-29607f17-39ec-45e9-9625-54550738672e.jpg)
+
 
 ## Quick start
 
