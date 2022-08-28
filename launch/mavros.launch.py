@@ -8,11 +8,11 @@ def generate_launch_description():
 
     # Package Directories
     pkg_mavros = get_package_share_directory('mavros')
-    pkg_ros_ign_rover = get_package_share_directory('ros_ign_rover')
+    pkg_ros_gz_rover = get_package_share_directory('ros_gz_rover')
 
     # Config
-    config = os.path.join(pkg_ros_ign_rover, 'config', 'config.yaml')
-    # pluginlists = os.path.join(pkg_ros_ign_rover, 'config', 'pluginlists.yaml')
+    config = os.path.join(pkg_ros_gz_rover, 'config', 'config.yaml')
+    # pluginlists = os.path.join(pkg_ros_gz_rover, 'config', 'pluginlists.yaml')
 
     # Resolved:
     #   Parameter yaml files have a different structure for ROS2.

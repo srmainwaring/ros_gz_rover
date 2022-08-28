@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>ros_ign_rover</name>
+  <name>ros_gz_rover</name>
   <version>0.0.0</version>
-  <description>Rover demo using Ignition Gazebo and ROS2.</description>
+  <description>Rover demo using Gazebo and ROS2.</description>
   <maintainer email="rhys.mainwaring@me.com">rhys</maintainer>
   <license>Apache 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <!-- Fortress -->
-  <exec_depend condition="$IGNITION_VERSION == fortress">ignition-gazebo6</exec_depend>
+  <exec_depend condition="$GZ_VERSION == fortress">ignition-gazebo6</exec_depend>
   <!-- Garden -->
-  <exec_depend condition="$IGNITION_VERSION == garden">ignition-gazebo7</exec_depend>
-  <exec_depend condition="$IGNITION_VERSION == ''">gazebo7-gazebo6</exec_depend>
+  <exec_depend condition="$GZ_VERSION == garden">gz-sim7</exec_depend>
+  <exec_depend condition="$GZ_VERSION == ''">gz-sim7</exec_depend>
 
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>image_transport_plugins</exec_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>ros_ign_bridge</exec_depend>
-  <exec_depend>ros_ign_gazebo</exec_depend>
-  <exec_depend>ros_ign_image</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_gazebo</exec_depend>
+  <exec_depend>ros_gz_image</exec_depend>
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>rqt_image_view</exec_depend>
   <exec_depend>rqt_plot</exec_depend>

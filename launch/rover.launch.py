@@ -11,11 +11,11 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     # Package Directories
-    pkg_ros_ign_gazebo = get_package_share_directory('ros_ign_gazebo')
-    pkg_ros_ign_rover = get_package_share_directory('ros_ign_rover')
+    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
+    pkg_ros_gz_rover = get_package_share_directory('ros_gz_rover')
 
     # Parse robot description from xacro
-    robot_description_file = os.path.join(pkg_ros_ign_rover,
+    robot_description_file = os.path.join(pkg_ros_gz_rover,
         'models', 'rover.urdf.xacro')
     robot_description_config = xacro.process_file(
         robot_description_file)
@@ -30,11 +30,11 @@ def generate_launch_description():
         parameters=[robot_description],
     )
 
-    # Ignition gazebo
+    # Gazebo
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_ros_ign_gazebo, 'launch', 'ign_gazebo.launch.py')),
-        launch_arguments={'ign_args': '-s -r rover_playpen.sdf'}.items(),
+            os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
+        launch_arguments={'gz_args': '-s -r rover_playpen.sdf'}.items(),
     )
 
     # RViz
@@ -43,7 +43,7 @@ def generate_launch_description():
         executable='rviz2',
         arguments=[
             '-d',
-            os.path.join(pkg_ros_ign_rover, 'rviz', 'rover.rviz')
+            os.path.join(pkg_ros_gz_rover, 'rviz', 'rover.rviz')
         ],
     )
 
@@ -52,7 +52,7 @@ def generate_launch_description():
     # spawn the model published on the topic 'robot_description'
     # into the current world with the name 'rover'. Adjust the pose
     # as required.
-    spawn = Node(package='ros_ign_gazebo', executable='create',
+    spawn = Node(package='ros_gz_sim', executable='create',
         arguments=[
             '-world', '',
             '-param', '',
@@ -68,18 +68,18 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Ign - ROS Bridge
+    # Gz - ROS Bridge
     bridge = Node(
-        package='ros_ign_bridge',
+        package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
-            '/world/rover_playpen/model/rover/joint_state@sensor_msgs/msg/JointState[ignition.msgs.Model',
-            '/world/rover_playpen/model/rover/link/base_link/sensor/imu_sensor/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
-            '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
-            '/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked',
-            '/model/rover/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
-            '/model/rover/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose',
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            '/world/rover_playpen/model/rover/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+            '/world/rover_playpen/model/rover/link/base_link/sensor/imu_sensor/imu@sensor_msgs/msg/Imu[gz.msgs.IMU',
+            '/lidar@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
+            '/lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
+            '/model/rover/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+            '/model/rover/pose@geometry_msgs/msg/PoseStamped[gz.msgs.Pose',
         ],
         remappings=[
             ('/world/rover_playpen/model/rover/joint_state', 'joint_states'),
@@ -123,7 +123,7 @@ def generate_launch_description():
     )
 
     tf_broadcaster = Node(
-        package='ros_ign_rover',
+        package='ros_gz_rover',
         executable='tf_broadcaster',
         arguments=[
         ],
@@ -131,7 +131,7 @@ def generate_launch_description():
 
     # laser scan processing
     laser_scan_transform = Node(
-        package='ros_ign_rover',
+        package='ros_gz_rover',
         executable='laser_scan_transform_flu_to_frd',
         arguments=[
         ],

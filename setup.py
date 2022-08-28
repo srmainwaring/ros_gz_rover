@@ -2,7 +2,7 @@ import os
 from glob import glob
 from setuptools import setup
 
-package_name = 'ros_ign_rover'
+package_name = 'ros_gz_rover'
 
 setup(
     name=package_name,
@@ -25,13 +25,13 @@ setup(
     zip_safe=True,
     maintainer='Rhys Mainwaring',
     maintainer_email='rhys.mainwaring@me.com',
-    description='Rover demo using Ignition Gazebo and ROS2',
+    description='Rover demo using Gazebo and ROS2',
     license='Apache 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'laser_scan_transform_flu_to_frd = ros_ign_rover.laser_scan_transform_flu_to_frd:main',
-            'tf_broadcaster = ros_ign_rover.tf_broadcaster:main',
+            'laser_scan_transform_flu_to_frd = ros_gz_rover.laser_scan_transform_flu_to_frd:main',
+            'tf_broadcaster = ros_gz_rover.tf_broadcaster:main',
         ],
     },
 )
