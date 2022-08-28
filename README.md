@@ -1,60 +1,70 @@
-# ros-ign-rover
+# ros-gz-rover
 
-This package contains an example demonstrating how to use the ROS2 - Ignition bridge for a skid-steer rover controlled by ArduPilot. It assumes an advanced level of familiarity with the packages referred to below, most of the dependencies will need to be built from source. 
+This package contains an example demonstrating how to use the ROS2 - Gazebo
+bridge for a skid-steer rover controlled by ArduPilot. It assumes an advanced
+level of familiarity with the packages referred to below, most of the
+dependencies will need to be built from source. 
 
-![ros_ign_rover_playpen_5](https://user-images.githubusercontent.com/24916364/163236091-29607f17-39ec-45e9-9625-54550738672e.jpg)
+![ros_gz_rover_playpen_5](https://user-images.githubusercontent.com/24916364/163236091-29607f17-39ec-45e9-9625-54550738672e.jpg)
 
 
 ## Quick start
 
-The following instructions are for macOS (Big Sur 11.6.1). They assume that ROS2 Galactic is available on the system (including rviz2), and that Ignition Garden has been installed from source. An ArduPilot development environment must be installed including MAVProxy. The ArduPilot/ardupilot_gazebo plugins must be installed and the ArduPilot/SITL_Models repo available. Each terminal running a command will need to correctly source the appropriate environments and ensure the Ignition environment variables specifying Gazebo resource and system plugins are exported. 
+The following instructions are for macOS (Monterey 12.5). They assume that
+ROS2 Humble is available on the system (including rviz2), and that
+Gazebo Garden has been installed from source. An ArduPilot development
+environment must be installed including MAVProxy. The ArduPilot/ardupilot_gazebo
+plugins must be installed and the ArduPilot/SITL_Models repo available. Each
+terminal running a command will need to correctly source the appropriate
+environments and ensure the Gazebo environment variables specifying Gazebo
+resource and system plugins are exported. 
 
 Create workspace
 
 ```bash
 # create workspace
-$ mkdir -p ~/ros2-ign/src && cd ~/ros2-ign/src
+$ mkdir -p ~/ros2-gz/src && cd ~/ros2-gz/src
 
-# clone ros-ign
-$ git clone https://github.com/srmainwaring/ros_ign.git -b feature/ros2-macos
+# clone ros-gz
+$ git clone https://github.com/srmainwaring/ros_gz.git -b feature/ros2-macos
 
-# clone tf_transformations (ros2 galactic may not include this)
+# clone tf_transformations (ros2 humble may not include this)
 https://github.com/DLu/tf_transformations.git
 
 
 # clone dependencies for mavros (ROS2)
 git clone https://github.com/ros/angles.git -b ros2
-git clone https://github.com/ros/diagnostics.git -b galactic
-git clone https://github.com/ros/diagnostics.git -b galactic
+git clone https://github.com/ros/diagnostics.git -b humble
+git clone https://github.com/ros/diagnostics.git -b humble
 git clone https://github.com/ros-geographic-info/geographic_info.git -b ros2
 git clone https://github.com/mavlink/mavlink-gbp-release.git
 git clone https://github.com/srmainwaring/mavros.git -b srmainwaring/ros2-macos
 
 # clone this repo
-git clone https://github.com/srmainwaring/ros_ign_rover.git
+git clone https://github.com/srmainwaring/ros_gz_rover.git
 ```
 
 Build
 
 ```bash
-$ cd ~/ros2-ign
+$ cd ~/ros2-gz
 $ colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_MACOSX_RPATH=FALSE -DCMAKE_INSTALL_NAME_DIR=$(pwd)/install/lib -DCMAKE_CXX_STANDARD=17
 ```
 
-Launch the ROS2 nodes, the Ignition server, and RViz
+Launch the ROS2 nodes, the Gazebo server, and RViz
 
 ```bash
-$ cd ~/ros2-ign
+$ cd ~/ros2-gz
 $ source ./install/setup.zsh
-$ ros2 launch ros_ign_rover rover.launch.py
+$ ros2 launch ros_gz_rover rover.launch.py
 ```
 
 Launch the mavros nodes including plugins from mavros_extras
 
 ```bash
-$ cd ~/ros2-ign
+$ cd ~/ros2-gz
 $ source ./install/setup.zsh
-$ ros2 launch ros_ign_rover mavros.launch.py
+$ ros2 launch ros_gz_rover mavros.launch.py
 ```
 
 Launch SITL and provide output to additional GCS running on another machine
@@ -63,9 +73,9 @@ Launch SITL and provide output to additional GCS running on another machine
 $ sim_vehicle.py -N -v Rover -f rover-skid --model JSON --mavproxy-args="--out=udp:192.168.1.83:14551"
 ```
 
-Launch the Ignition Gazebo client
+Launch the Gazebo client
 
 ```bash
-$ ign gazebo -v4 -g
+$ gz sim -v4 -g
 ```
 

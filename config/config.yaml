@@ -123,7 +123,7 @@
   # 
   # The mav_frame does not appear to be used to transform the data
   # on either the mavros side or in ArduPilot SITL. The correct frame
-  # for data received from Ignition is BODY_FLU, but this is not available
+  # for data received from Gazebo is BODY_FLU, but this is not available
   # as an option.
   obstacle:
     ros__parameters:
