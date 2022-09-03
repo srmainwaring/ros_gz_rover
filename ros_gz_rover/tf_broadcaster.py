@@ -7,15 +7,16 @@ from rclpy.node import Node
 
 from tf2_ros import TransformBroadcaster
 
-class FramePublisher(Node):
 
+class FramePublisher(Node):
     def __init__(self):
-        super().__init__('tf_broadcaster')
+        super().__init__("tf_broadcaster")
 
         # Declare and acquire `rover_name` parameter
-        self.declare_parameter('rover_name', 'rover')
-        self.rover_name = self.get_parameter(
-            'rover_name').get_parameter_value().string_value
+        self.declare_parameter("rover_name", "rover")
+        self.rover_name = (
+            self.get_parameter("rover_name").get_parameter_value().string_value
+        )
 
         # Initialize the transform broadcaster
         self.br = TransformBroadcaster(self)
@@ -23,18 +24,16 @@ class FramePublisher(Node):
         # Subscribe to a /odom topic and call the handle_odom
         # callback function on each message
         self.subscription = self.create_subscription(
-            Odometry,
-            f'/odom',
-            self.handle_odom,
-            1)
+            Odometry, f"/odom", self.handle_odom, 1
+        )
         self.subscription
 
     def handle_odom(self, msg):
-        '''
+        """
         Publish the transform from odom -> base_link
 
         nav_msgs/Odometry
-        '''
+        """
 
         t = TransformStamped()
 
@@ -42,8 +41,8 @@ class FramePublisher(Node):
         # corresponding tf variables
         # t.header.stamp = self.get_clock().now().to_msg()
         t.header.stamp = msg.header.stamp
-        t.header.frame_id = 'odom'
-        t.child_frame_id = 'base_link'
+        t.header.frame_id = "odom"
+        t.child_frame_id = "base_link"
 
         t.transform.translation.x = msg.pose.pose.position.x
         t.transform.translation.y = msg.pose.pose.position.y
