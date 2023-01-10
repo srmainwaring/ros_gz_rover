@@ -322,6 +322,8 @@
   <gazebo reference="lidar_link">
     <!-- <sensor name='gpu_lidar' type='gpu_lidar'>
       <topic>lidar</topic>
+      <always_on>1</always_on>
+      <visualize>1</visualize>
       <update_rate>10</update_rate>
       <lidar>
         <scan>
@@ -344,12 +346,12 @@
           <resolution>0.01</resolution>
         </range>
       </lidar>
-      <alwaysOn>1</alwaysOn>
-      <visualize>true</visualize>
     </sensor> -->
     <!-- 360 deg / multi-laser -->
     <sensor name='gpu_lidar' type='gpu_lidar'>
       <topic>lidar</topic>
+      <always_on>1</always_on>
+      <visualize>1</visualize>
       <update_rate>10</update_rate>
       <lidar>
         <scan>
@@ -372,8 +374,6 @@
           <resolution>0.01</resolution>
         </range>
       </lidar>
-      <alwaysOn>1</alwaysOn>
-      <visualize>true</visualize>
     </sensor>
   </gazebo>
   <gazebo reference="lidar_joint">
@@ -382,8 +382,8 @@
   <!-- gazebo plugins -->
   <gazebo>
     <plugin
-      filename="ignition-gazebo-pose-publisher-system"
-      name="ignition::gazebo::systems::PosePublisher">
+      filename="gz-sim-pose-publisher-system"
+      name="gz::sim::systems::PosePublisher">
       <publish_link_pose>1</publish_link_pose>
       <publish_visual_pose>0</publish_visual_pose>
       <publish_collision_pose>0</publish_collision_pose>
@@ -397,8 +397,8 @@
       <static_update_frequency>1</static_update_frequency> -->
     </plugin>
     <plugin
-      filename="ignition-gazebo-odometry-publisher-system"
-      name="ignition::gazebo::systems::OdometryPublisher">
+      filename="gz-sim-odometry-publisher-system"
+      name="gz::sim::systems::OdometryPublisher">
       <!-- <odom_frame>rover/odom</odom_frame>
       <robot_base_frame>rover/base_footprint</robot_base_frame>
       <odom_publish_frequency>50</odom_publish_frequency>
@@ -411,32 +411,32 @@
     </plugin>
 
     <plugin
-      filename="libignition-gazebo-joint-state-publisher-system.so"
-      name="ignition::gazebo::systems::JointStatePublisher">
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
     </plugin>
 
     <plugin
-      filename="libignition-gazebo-apply-joint-force-system.so"
-      name="ignition::gazebo::systems::ApplyJointForce">
+      filename="gz-sim-apply-joint-force-system"
+      name="gz::sim::systems::ApplyJointForce">
       <joint_name>front_left_wheel_joint</joint_name>
     </plugin>
     <plugin
-      filename="libignition-gazebo-apply-joint-force-system.so"
-      name="ignition::gazebo::systems::ApplyJointForce">
+      filename="gz-sim-apply-joint-force-system"
+      name="gz::sim::systems::ApplyJointForce">
       <joint_name>front_right_wheel_joint</joint_name>
     </plugin>
     <plugin
-      filename="libignition-gazebo-apply-joint-force-system.so"
-      name="ignition::gazebo::systems::ApplyJointForce">
+      filename="gz-sim-apply-joint-force-system"
+      name="gz::sim::systems::ApplyJointForce">
       <joint_name>rear_left_wheel_joint</joint_name>
     </plugin>
     <plugin
-      filename="libignition-gazebo-apply-joint-force-system.so"
-      name="ignition::gazebo::systems::ApplyJointForce">
+      filename="gz-sim-apply-joint-force-system"
+      name="gz::sim::systems::ApplyJointForce">
       <joint_name>rear_right_wheel_joint</joint_name>
     </plugin>
 
-    <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
+    <plugin name="ArduPilotPlugin" filename="ArduPilotPlugin">
       <fdm_addr>127.0.0.1</fdm_addr>
       <fdm_port_in>9002</fdm_port_in>
       <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
