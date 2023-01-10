@@ -11,7 +11,7 @@ dependencies will need to be built from source.
 ## Quick start
 
 The following instructions are for macOS (Monterey 12.5). They assume that
-ROS2 Humble is available on the system (including rviz2), and that
+ROS2 Humble (or Rolling) is available on the system (including rviz2), and that
 Gazebo Garden has been installed from source. An ArduPilot development
 environment must be installed including MAVProxy. The ArduPilot/ardupilot_gazebo
 plugins must be installed and the ArduPilot/SITL_Models repo available. Each
@@ -25,8 +25,8 @@ Create workspace
 # create workspace
 $ mkdir -p ~/ros2-gz/src && cd ~/ros2-gz/src
 
-# clone ros-gz
-$ git clone https://github.com/srmainwaring/ros_gz.git -b feature/ros2-macos
+# clone ros-gz (ros2 rolling branch)
+$ git clone https://github.com/gazebosim/ros_gz.git -b ros2
 
 # clone tf_transformations (ros2 humble may not include this)
 https://github.com/DLu/tf_transformations.git
