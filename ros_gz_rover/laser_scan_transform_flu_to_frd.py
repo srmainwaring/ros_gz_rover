@@ -6,42 +6,39 @@ from rclpy.node import Node
 
 
 class LaserScanTransformFLUToFRD(Node):
-    '''
+    """
     Transform LaserScan data from BODY_FLU to BODY_FRD
 
     Assumptions:
       - Scan data is horizontal
       - Scan data is symmetric about the x-axis
-      - Equal magnitude limits: |angle_max| = |angle_min| 
+      - Equal magnitude limits: |angle_max| = |angle_min|
 
     The transform is implemented by reversing the order of the
     ranges and intensities arrays
-    '''
+    """
 
     def __init__(self):
-        super().__init__('laser_scan_transform_flu_to_frd')
+        super().__init__("laser_scan_transform_flu_to_frd")
 
         # Declare and acquire `rover_name` parameter
-        self.declare_parameter('rover_name', 'rover')
-        self.rover_name = self.get_parameter(
-            'rover_name').get_parameter_value().string_value
+        self.declare_parameter("rover_name", "rover")
+        self.rover_name = (
+            self.get_parameter("rover_name").get_parameter_value().string_value
+        )
 
         # Subscribe to a /sensors/laser_scan topic
         self.subscription = self.create_subscription(
-            LaserScan,
-            f'/sensors/laser_scan',
-            self.handle_laser_scan,
-            1)
+            LaserScan, f"/sensors/laser_scan", self.handle_laser_scan, 1
+        )
         self.subscription
 
-        self.publisher = self.create_publisher(
-            LaserScan, 'sensors/laser_scan_frd', 10)
-
+        self.publisher = self.create_publisher(LaserScan, "sensors/laser_scan_frd", 10)
 
     def handle_laser_scan(self, msg):
-        '''
+        """
         Flip the laser scan data from ROS FLU to aerospace FRD convention
-        '''
+        """
         scan = LaserScan()
 
         scan.header.stamp = msg.header.stamp
@@ -63,6 +60,7 @@ class LaserScanTransformFLUToFRD(Node):
 
         # Publish the transformed scan
         self.publisher.publish(scan)
+
 
 def main():
     rclpy.init()
